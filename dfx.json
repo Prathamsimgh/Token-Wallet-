@@ -1,0 +1,1 @@
+{"canisters":{"token_wallet":{"candid":"src/token_wallet.did","package":"token-wallet","type":"rust"}},"defaults":{"build":{"packtool":""}},"version":1}
