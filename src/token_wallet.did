@@ -1,0 +1,23 @@
+type Result = variant { Ok; Err : text };
+// Token metadata (ERC-20 style).
+type TokenMetadata = record {
+  decimals : nat8;
+  owner : text;
+  name : text;
+  total_supply : nat64;
+  symbol : text;
+};
+service : (text, text, nat8, principal) -> {
+  // Balance of an account, 0 for unknown accounts.
+  balance_of : (text) -> (nat64) query;
+  // Destroy tokens. The account holder or the owner may burn.
+  burn : (text, nat64) -> (Result);
+  // Token name, symbol, decimals, owner and supply.
+  metadata : () -> (TokenMetadata) query;
+  // Create new tokens. Only the owner may mint.
+  mint : (text, nat64) -> (Result);
+  // Total minted minus total burned.
+  total_supply : () -> (nat64) query;
+  // Move tokens between accounts.
+  transfer : (text, text, nat64) -> (Result);
+}
