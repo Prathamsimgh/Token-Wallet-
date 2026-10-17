@@ -48,6 +48,27 @@ dfx start --background
 dfx deploy token_wallet --argument '( "Demo Token", "DMT", 8, principal "<OWNER_PRINCIPAL>" )'
 ```
 
+## Example session
+
+```sh
+# query metadata
+dfx canister call token_wallet metadata
+
+# owner mints 1000 DMT to alice
+dfx canister call token_wallet mint '("alice", 1000)'
+
+# alice sends 250 to bob
+dfx canister call token_wallet transfer '("alice", "bob", 250)'
+
+# check balances
+dfx canister call token_wallet balance_of '("alice")'
+dfx canister call token_wallet balance_of '("bob")'
+```
+
+The `mint` call only succeeds from the owner principal recorded at deploy
+time — calls from anyone else fail with `"Unauthorized: … is not the token
+owner"`.
+
 ## API
 
 | Method | Kind | Args | Returns |
