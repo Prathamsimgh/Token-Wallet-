@@ -93,3 +93,6 @@ Error cases use descriptive messages: `"Unauthorized: … is not the token owner
 - All balance arithmetic uses `checked_add`; overflow is rejected instead of
   wrapping.
 - `transfer` to self is a no-op.
+- `mint`/`burn`/`transfer` are fully synchronous: there is no `await` between
+  the balance check and the balance write, so each update call executes
+  atomically and no interleaving message can observe a half-applied transfer.
