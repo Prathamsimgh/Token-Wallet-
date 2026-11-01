@@ -48,6 +48,20 @@ dfx start --background
 dfx deploy token_wallet --argument '( "Demo Token", "DMT", 8, principal "<OWNER_PRINCIPAL>" )'
 ```
 
+## Upgrades
+
+The ledger lives in stable memory, so balances survive a canister upgrade
+without a separate migration step. To verify after redeploying:
+
+```sh
+dfx deploy token_wallet
+dfx canister call token_wallet balance_of '("alice")'
+# -> the pre-upgrade balance, unchanged
+```
+
+`init` runs only on first install, so redeploying never resets the owner
+principal or the existing accounts.
+
 ## Example session
 
 ```sh
